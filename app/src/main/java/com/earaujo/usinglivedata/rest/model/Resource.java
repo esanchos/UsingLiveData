@@ -19,9 +19,7 @@ package com.earaujo.usinglivedata.rest.model;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static com.earaujo.usinglivedata.rest.model.Status.ERROR;
-import static com.earaujo.usinglivedata.rest.model.Status.LOADING;
-import static com.earaujo.usinglivedata.rest.model.Status.SUCCESS;
+import static com.earaujo.usinglivedata.rest.model.Status.*;
 
 /**
  * A generic class that holds a value with its loading status.

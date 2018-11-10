@@ -1,9 +1,10 @@
 
-package com.earaujo.usinglivedata.rest.model;
+package com.earaujo.usinglivedata.rest.model.reddit;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Data_ {
 
@@ -63,7 +64,7 @@ public class Data_ {
     private boolean clicked;
     @SerializedName("link_flair_richtext")
     @Expose
-    private List<Object> linkFlairRichtext = null;
+    private List<LinkFlairRichtext> linkFlairRichtext = null;
     @SerializedName("subreddit_name_prefixed")
     @Expose
     private String subredditNamePrefixed;
@@ -75,7 +76,7 @@ public class Data_ {
     private int pwls;
     @SerializedName("link_flair_css_class")
     @Expose
-    private Object linkFlairCssClass;
+    private String linkFlairCssClass;
     @SerializedName("downs")
     @Expose
     private int downs;
@@ -90,7 +91,7 @@ public class Data_ {
     private String linkFlairTextColor;
     @SerializedName("author_flair_background_color")
     @Expose
-    private Object authorFlairBackgroundColor;
+    private String authorFlairBackgroundColor;
     @SerializedName("ups")
     @Expose
     private int ups;
@@ -105,7 +106,7 @@ public class Data_ {
     private int thumbnailWidth;
     @SerializedName("author_flair_template_id")
     @Expose
-    private Object authorFlairTemplateId;
+    private String authorFlairTemplateId;
     @SerializedName("is_original_content")
     @Expose
     private boolean isOriginalContent;
@@ -129,7 +130,7 @@ public class Data_ {
     private SecureMediaEmbed secureMediaEmbed;
     @SerializedName("link_flair_text")
     @Expose
-    private Object linkFlairText;
+    private String linkFlairText;
     @SerializedName("can_mod_post")
     @Expose
     private boolean canModPost;
@@ -142,12 +143,9 @@ public class Data_ {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
-    @SerializedName("edited")
-    @Expose
-    private boolean edited;
     @SerializedName("author_flair_css_class")
     @Expose
-    private Object authorFlairCssClass;
+    private String authorFlairCssClass;
     @SerializedName("author_flair_richtext")
     @Expose
     private List<Object> authorFlairRichtext = null;
@@ -216,7 +214,7 @@ public class Data_ {
     private boolean mediaOnly;
     @SerializedName("link_flair_template_id")
     @Expose
-    private Object linkFlairTemplateId;
+    private String linkFlairTemplateId;
     @SerializedName("can_gild")
     @Expose
     private boolean canGild;
@@ -228,7 +226,7 @@ public class Data_ {
     private boolean locked;
     @SerializedName("author_flair_text")
     @Expose
-    private Object authorFlairText;
+    private String authorFlairText;
     @SerializedName("visited")
     @Expose
     private boolean visited;
@@ -276,7 +274,7 @@ public class Data_ {
     private boolean authorPatreonFlair;
     @SerializedName("author_flair_text_color")
     @Expose
-    private Object authorFlairTextColor;
+    private String authorFlairTextColor;
     @SerializedName("permalink")
     @Expose
     private String permalink;
@@ -440,11 +438,11 @@ public class Data_ {
         this.clicked = clicked;
     }
 
-    public List<Object> getLinkFlairRichtext() {
+    public List<LinkFlairRichtext> getLinkFlairRichtext() {
         return linkFlairRichtext;
     }
 
-    public void setLinkFlairRichtext(List<Object> linkFlairRichtext) {
+    public void setLinkFlairRichtext(List<LinkFlairRichtext> linkFlairRichtext) {
         this.linkFlairRichtext = linkFlairRichtext;
     }
 
@@ -472,11 +470,11 @@ public class Data_ {
         this.pwls = pwls;
     }
 
-    public Object getLinkFlairCssClass() {
+    public String getLinkFlairCssClass() {
         return linkFlairCssClass;
     }
 
-    public void setLinkFlairCssClass(Object linkFlairCssClass) {
+    public void setLinkFlairCssClass(String linkFlairCssClass) {
         this.linkFlairCssClass = linkFlairCssClass;
     }
 
@@ -512,11 +510,11 @@ public class Data_ {
         this.linkFlairTextColor = linkFlairTextColor;
     }
 
-    public Object getAuthorFlairBackgroundColor() {
+    public String getAuthorFlairBackgroundColor() {
         return authorFlairBackgroundColor;
     }
 
-    public void setAuthorFlairBackgroundColor(Object authorFlairBackgroundColor) {
+    public void setAuthorFlairBackgroundColor(String authorFlairBackgroundColor) {
         this.authorFlairBackgroundColor = authorFlairBackgroundColor;
     }
 
@@ -552,11 +550,11 @@ public class Data_ {
         this.thumbnailWidth = thumbnailWidth;
     }
 
-    public Object getAuthorFlairTemplateId() {
+    public String getAuthorFlairTemplateId() {
         return authorFlairTemplateId;
     }
 
-    public void setAuthorFlairTemplateId(Object authorFlairTemplateId) {
+    public void setAuthorFlairTemplateId(String authorFlairTemplateId) {
         this.authorFlairTemplateId = authorFlairTemplateId;
     }
 
@@ -616,11 +614,11 @@ public class Data_ {
         this.secureMediaEmbed = secureMediaEmbed;
     }
 
-    public Object getLinkFlairText() {
+    public String getLinkFlairText() {
         return linkFlairText;
     }
 
-    public void setLinkFlairText(Object linkFlairText) {
+    public void setLinkFlairText(String linkFlairText) {
         this.linkFlairText = linkFlairText;
     }
 
@@ -656,19 +654,11 @@ public class Data_ {
         this.thumbnail = thumbnail;
     }
 
-    public boolean isEdited() {
-        return edited;
-    }
-
-    public void setEdited(boolean edited) {
-        this.edited = edited;
-    }
-
-    public Object getAuthorFlairCssClass() {
+    public String getAuthorFlairCssClass() {
         return authorFlairCssClass;
     }
 
-    public void setAuthorFlairCssClass(Object authorFlairCssClass) {
+    public void setAuthorFlairCssClass(String authorFlairCssClass) {
         this.authorFlairCssClass = authorFlairCssClass;
     }
 
@@ -848,11 +838,11 @@ public class Data_ {
         this.mediaOnly = mediaOnly;
     }
 
-    public Object getLinkFlairTemplateId() {
+    public String getLinkFlairTemplateId() {
         return linkFlairTemplateId;
     }
 
-    public void setLinkFlairTemplateId(Object linkFlairTemplateId) {
+    public void setLinkFlairTemplateId(String linkFlairTemplateId) {
         this.linkFlairTemplateId = linkFlairTemplateId;
     }
 
@@ -880,11 +870,11 @@ public class Data_ {
         this.locked = locked;
     }
 
-    public Object getAuthorFlairText() {
+    public String getAuthorFlairText() {
         return authorFlairText;
     }
 
-    public void setAuthorFlairText(Object authorFlairText) {
+    public void setAuthorFlairText(String authorFlairText) {
         this.authorFlairText = authorFlairText;
     }
 
@@ -1008,11 +998,11 @@ public class Data_ {
         this.authorPatreonFlair = authorPatreonFlair;
     }
 
-    public Object getAuthorFlairTextColor() {
+    public String getAuthorFlairTextColor() {
         return authorFlairTextColor;
     }
 
-    public void setAuthorFlairTextColor(Object authorFlairTextColor) {
+    public void setAuthorFlairTextColor(String authorFlairTextColor) {
         this.authorFlairTextColor = authorFlairTextColor;
     }
 
