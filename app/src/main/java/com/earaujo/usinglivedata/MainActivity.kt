@@ -28,17 +28,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun performSearch(search: String) {
         ApiUtil.searchReddit(search, 20).observe(this, Observer { searchResult ->
-            when (searchResult!!.status) {
-                LOADING -> {
-                    et_title.text = "Loading..."
-                }
-                SUCCESS -> {
-                    setupRecyclerView(searchResult.data?.data?.children!!)
-                    et_title.text = searchResult.data.data?.children?.get(0)?.data?.title
-                }
-                ERROR -> {
-                    et_title.text = searchResult.message
-                }
+            if (searchResult != null) {
+                setupRecyclerView(searchResult.data?.children!!)
             }
         })
     }
