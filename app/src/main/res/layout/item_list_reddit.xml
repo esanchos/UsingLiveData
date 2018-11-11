@@ -7,8 +7,8 @@
 
     <ImageView
             android:id="@+id/iv_reddit"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

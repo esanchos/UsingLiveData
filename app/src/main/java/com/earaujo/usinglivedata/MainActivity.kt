@@ -7,7 +7,6 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.earaujo.usinglivedata.rest.ApiUtil
-import com.earaujo.usinglivedata.rest.model.Status.*
 import com.earaujo.usinglivedata.rest.model.reddit.Child
 import kotlinx.android.synthetic.main.activity_main.*
 
