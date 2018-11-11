@@ -1,5 +1,6 @@
 package com.earaujo.usinglivedata
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.Transformations
@@ -9,7 +10,6 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.earaujo.usinglivedata.rest.ApiUtil
-import com.earaujo.usinglivedata.rest.model.Status.*
 import com.earaujo.usinglivedata.rest.model.reddit.Child
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,6 +42,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         this.searchRequest.value = search
     }
 
+    val twoRequests = zipLiveData(
+        ApiUtil.searchReddit("ferrari", 1),
+        ApiUtil.searchReddit("fiat", 1)
+    )
+
+    fun <A, B> zipLiveData(a: LiveData<A>, b: LiveData<B>): LiveData<Pair<A, B>> {
+        return MediatorLiveData<Pair<A, B>>().apply {
+            var lastA: A? = null
+            var lastB: B? = null
+
+            fun update() {
+                val localLastA = lastA
+                val localLastB = lastB
+                if (localLastA != null && localLastB != null)
+                    this.value = Pair(localLastA, localLastB)
+            }
+
+            addSource(a) {
+                lastA = it
+                update()
+            }
+            addSource(b) {
+                lastB = it
+                update()
+            }
+        }
+    }
+
     fun installSearch() {
         /*searchTransform.observe(this, Observer { searchResult ->
             if (searchResult != null) {
@@ -49,12 +77,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         })*/
 
-        titleObserver.observe(this, Observer { title ->
+        twoRequests.observe(this, Observer { twoSearchResult ->
+            val finalList = mutableListOf<Child>()
+            twoSearchResult?.first?.data?.children?.get(0)?.let { finalList.add(it) }
+            twoSearchResult?.second?.data?.children?.get(0)?.let { finalList.add(it) }
+            setupRecyclerView(finalList)
+        })
+
+        /*titleObserver.observe(this, Observer { title ->
             if (title != null) {
                 tv_title.text = title
                 tv_title.visibility = View.VISIBLE
             }
-        })
+        })*/
     }
 
     private fun setupRecyclerView(items: List<Child>) {
