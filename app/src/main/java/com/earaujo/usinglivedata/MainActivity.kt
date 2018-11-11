@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.earaujo.usinglivedata.rest.ApiUtil
 import com.earaujo.usinglivedata.rest.model.reddit.Child
+import com.earaujo.usinglivedata.rest.model.reddit.SearchModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -32,6 +33,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
+
+    /*fun performSearch(search: String) {
+        val liveData = ApiUtil.searchReddit(search, 20)
+        liveData.observe(this, object : Observer<SearchModel> {
+            override fun onChanged(searchResult: SearchModel?) {
+                if (searchResult != null) {
+                    setupRecyclerView(searchResult.data?.children!!)
+                }
+                liveData.removeObserver(this)
+            }
+        })
+    }*/
 
     private fun setupRecyclerView(items: List<Child>) {
         adapter = RedditAdapter(this, items)
