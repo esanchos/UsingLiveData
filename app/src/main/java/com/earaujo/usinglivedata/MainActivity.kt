@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_search.setOnClickListener(this)
     }
 
-    fun performSearch(search: String) {
+    private fun performSearch(search: String) {
         val liveData = ApiUtil.searchReddit(search, 20)
         liveData.observe(this, object : Observer<Resource<SearchModel>> {
             override fun onChanged(searchResult: Resource<SearchModel>?) {
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         linearLayoutManager = LinearLayoutManager(this)
         rv_reddit.layoutManager = linearLayoutManager
         rv_reddit.itemAnimator = DefaultItemAnimator()
-        rv_reddit.adapter = adapter;
+        rv_reddit.adapter = adapter
         rv_reddit.visibility = View.VISIBLE
     }
 
