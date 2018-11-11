@@ -34,15 +34,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun onChanged(searchResult: Resource<SearchModel>?) {
                 when (searchResult!!.status) {
                     LOADING -> {
+                        et_title.visibility = View.VISIBLE
                         et_title.text = "Loading..."
                     }
                     SUCCESS -> {
                         setupRecyclerView(searchResult.data?.data?.children!!)
-                        //et_title.text = searchResult.data.data?.children?.get(0)?.data?.title
+                        et_title.visibility = View.GONE
                         liveData.removeObserver(this)
                     }
                     ERROR -> {
-                        //et_title.text = searchResult.message
+                        et_title.visibility = View.GONE
                         liveData.removeObserver(this)
                     }
                 }
