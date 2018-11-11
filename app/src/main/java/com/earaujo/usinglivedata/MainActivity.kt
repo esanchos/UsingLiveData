@@ -7,8 +7,10 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.earaujo.usinglivedata.rest.ApiUtil
+import com.earaujo.usinglivedata.rest.model.Resource
 import com.earaujo.usinglivedata.rest.model.Status.*
 import com.earaujo.usinglivedata.rest.model.reddit.Child
+import com.earaujo.usinglivedata.rest.model.reddit.SearchModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -27,17 +29,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun performSearch(search: String) {
-        ApiUtil.searchReddit(search, 20).observe(this, Observer { searchResult ->
-            when (searchResult!!.status) {
-                LOADING -> {
-                    et_title.text = "Loading..."
-                }
-                SUCCESS -> {
-                    setupRecyclerView(searchResult.data?.data?.children!!)
-                    et_title.text = searchResult.data.data?.children?.get(0)?.data?.title
-                }
-                ERROR -> {
-                    et_title.text = searchResult.message
+        val liveData = ApiUtil.searchReddit(search, 20)
+        liveData.observe(this, object : Observer<Resource<SearchModel>> {
+            override fun onChanged(searchResult: Resource<SearchModel>?) {
+                when (searchResult!!.status) {
+                    LOADING -> {
+                        et_title.text = "Loading..."
+                    }
+                    SUCCESS -> {
+                        setupRecyclerView(searchResult.data?.data?.children!!)
+                        //et_title.text = searchResult.data.data?.children?.get(0)?.data?.title
+                        liveData.removeObserver(this)
+                    }
+                    ERROR -> {
+                        //et_title.text = searchResult.message
+                        liveData.removeObserver(this)
+                    }
                 }
             }
         })
