@@ -30,29 +30,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_search.setOnClickListener(this)
     }
 
-    var searchTransform = Transformations.switchMap(searchRequest) {
+    private var searchTransform = Transformations.switchMap(searchRequest) {
         ApiUtil.searchReddit(it, 20)
     }
 
-    var titleObserver = Transformations.map(searchTransform) {
-        it.data?.children?.get(0)?.data?.title
-    }
-
-    fun performSearch(search: String) {
+    private fun performSearch(search: String) {
         this.searchRequest.value = search
     }
 
-    fun installSearch() {
-        /*searchTransform.observe(this, Observer { searchResult ->
-            if (searchResult != null) {
-                setupRecyclerView(searchResult.data?.children!!)
-            }
-        })*/
-
-        titleObserver.observe(this, Observer { title ->
-            if (title != null) {
-                tv_title.text = title
-                tv_title.visibility = View.VISIBLE
+    private fun installSearch() {
+        searchTransform.observe(this, Observer { searchResult ->
+            when (searchResult!!.status) {
+                LOADING -> {
+                    tv_title.visibility = View.VISIBLE
+                    tv_title.text = "Loading..."
+                }
+                SUCCESS -> {
+                    setupRecyclerView(searchResult.data?.data?.children!!)
+                    tv_title.visibility = View.GONE
+                }
+                ERROR -> {
+                    tv_title.visibility = View.GONE
+                }
             }
         })
     }
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         linearLayoutManager = LinearLayoutManager(this)
         rv_reddit.layoutManager = linearLayoutManager
         rv_reddit.itemAnimator = DefaultItemAnimator()
-        rv_reddit.adapter = adapter;
+        rv_reddit.adapter = adapter
         rv_reddit.visibility = View.VISIBLE
     }
 

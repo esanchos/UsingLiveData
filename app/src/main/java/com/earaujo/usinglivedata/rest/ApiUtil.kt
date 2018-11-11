@@ -2,6 +2,7 @@ package com.earaujo.usinglivedata.rest
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import com.earaujo.usinglivedata.rest.model.Resource
 import com.earaujo.usinglivedata.rest.model.reddit.SearchModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,9 +13,11 @@ object ApiUtil {
     fun searchReddit(
         search: String,
         limit: Int
-    ): LiveData<SearchModel> {
+    ): LiveData<Resource<SearchModel>> {
 
-        val result = MutableLiveData<SearchModel>()
+        val result = MutableLiveData<Resource<SearchModel>>()
+
+        result.postValue(Resource.loading(null as SearchModel?))
 
         val retrofit = ApiClient.client
         val apiService = retrofit.create(ApiInterface::class.java)
@@ -24,11 +27,19 @@ object ApiUtil {
                 call: Call<SearchModel>,
                 response: Response<SearchModel>
             ) {
-                result.postValue(response.body()!!)
+                if (response.code() in 200..299) {
+                    if (response.body() != null) {
+                        result.postValue(Resource.success(response.body()!!))
+                    } else {
+                        result.postValue(Resource.error("Erro desconhecido", null))
+                    }
+                } else {
+                    result.postValue(Resource.error("Erro desconhecido", null))
+                }
             }
 
             override fun onFailure(call: Call<SearchModel>, t: Throwable) {
-                result.postValue(null)
+                result.postValue(Resource.error("No Internet Connection", null))
             }
         })
 
